@@ -3,7 +3,7 @@ Measure FPS
 
 While working with CSS, HTML, and JS it's always important to take care of browser rendering. To find issues with rendering we are using "Timeline" with "JS Profile" and "Memory" consumption tracking. Those tools is good when you're know about the existing problem.
 
-During our development process we are using FPS-meter, which gives a signal when "Long" frames occurs. To see it action follow [this link](https://cssbuilder.veliovgroup.com) (*at left bottom corner*). Play with sliders so see how different CSS effects may slowdown rendering process.
+During our development process we are using FPS-meter, which gives a signal when "Long" frames occurs. To see it action follow [this link](https://cssbuilder.veliovgroup.com) (*at left bottom corner*). Play with sliders to see how different CSS effects may slowdown rendering process.
 
 This tool works on mobile devices. It uses `performance.now` to measure time period, and `requestAnimationFrame` to measure rendered frames, both APIs is very efficient and has minor impact (*which obviously helps to measure FPS more correctly*).
 
