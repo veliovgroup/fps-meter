@@ -1,6 +1,6 @@
 Package.describe({
   name: 'ostrio:fps-meter',
-  version: '0.0.1',
+  version: '1.0.0',
   summary: 'Efficient and accurate FPS meter, with minimalistic UI',
   git: 'https://github.com/VeliovGroup/fps-meter',
   documentation: 'README.md'
@@ -11,5 +11,4 @@ Package.onUse(function(api) {
   api.use(['templating', 'ecmascript'], 'client');
   api.addFiles('fps-meter.html', 'client');
   api.mainModule('fps-meter.js', 'client');
-  api.export('FPSMeter', 'client');
 });
