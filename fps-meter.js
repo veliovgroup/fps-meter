@@ -4,20 +4,15 @@ import { ReactiveVar } from 'meteor/reactive-var';
 
 if (!window.requestAnimationFrame) {
   window.requestAnimationFrame = (() => {
-    return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function(callback) {
+    return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
       window.setTimeout(callback, 1000 / 60);
     };
   })();
 }
 
 const getTime = () => {
-  return (performance && performance.now) ? performance.now() : +(new Date());
+  return (window.performance && window.performance.now) ? window.performance.now() : +new Date();
 };
-
-let element = null;
-Template.FPSMeter.onRendered(() => {
-  element = document.getElementById('__FPSMeter');
-});
 
 class FPSMeter {
   constructor(opts) {
@@ -42,56 +37,75 @@ class FPSMeter {
     this.template = null;
   }
 
+  measure() {
+    const time = getTime();
+    window.requestAnimationFrame(() => {
+      const _fps = Math.round((1 / (getTime() - time)) * 1000);
+
+      if (this.reactive === true) {
+        this.fps.set(_fps);
+      } else {
+        this.fps = _fps;
+      }
+
+      if (this.ui && this.element) {
+        let i = 4 - `${_fps}`.length;
+        let pad = '';
+
+        while (i > 0) {
+          pad += '&nbsp;';
+          i--;
+        }
+
+        this.element.innerHTML = `${_fps}${pad}fps`;
+
+        switch (false) {
+        case !(_fps < 7):
+          this.element.className = 'dead';
+          break;
+        case !(_fps < 25):
+          this.element.className = 'danger';
+          break;
+        case !(_fps < 40):
+          this.element.className = 'warn';
+          break;
+        case !(_fps > 70):
+          this.element.className = 'high';
+          break;
+        default:
+          this.element.className = '';
+          break;
+        }
+      }
+
+      if (this.isRunning) {
+        this.measure();
+      }
+    });
+  }
+
   start() {
-    this.fpss = 0;
     this.isRunning = true;
+
     if (this.ui === true && Blaze) {
-      this.template = Blaze.render(Template.FPSMeter, document.getElementsByTagName('body')[0]);
+      this.template = Blaze.render(Template.FPSMeter, document.body);
+      this.element = this.template.templateInstance().find('#__FPSMeter');
     }
 
-    const measure = () => {
-      const time = getTime();
-      window.requestAnimationFrame(() => {
-        this.fpss++;
-        var period = getTime() - time;
-        var _fps   = Math.round((1 / period) * 1000);
-        if (this.reactive === true) {
-          this.fps.set(_fps);
-        } else {
-          this.fps = _fps;
-        }
+    this.measure();
+  }
 
-        if (this.ui && element) {
-          let i = 4 - ('' + _fps).length;
-          let pad = '';
-          while (i > 0) {
-            pad += '&nbsp;';
-            i--;
-          }
-          element.innerHTML = _fps + pad + 'fps';
+  pause() {
+    this.isRunning = false;
+  }
 
-          switch (false) {
-          case !(_fps < 7):
-            element.className = 'dead';
-            break;
-          case !(_fps < 25):
-            element.className = 'danger';
-            break;
-          case !(_fps < 40):
-            element.className = 'warn';
-            break;
-          default:
-            element.className = '';
-            break;
-          }
-        }
+  resume() {
+    this.isRunning = true;
+    this.measure();
+  }
 
-        if (this.isRunning) {
-          measure();
-        }
-      });
-    };
-    measure();
+  toggle() {
+    this.isRunning ? this.pause() : this.resume();
   }
 
   stop() {

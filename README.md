@@ -61,10 +61,9 @@ const fps = new FPSMeter({ui: true, reactive: false});
 
 #### Properties
 
-- `FPSMeter#isRunning` {*Boolean*}
+- `FPSMeter#isRunning` {*Boolean*} — `true` if meter is running and `false` when meter is on pause, stopped or has not started yet
 - `FPSMeter#template` {*Blaze.View*|*undefined*} — When `{ui: true}` this property holds *Blaze.View* instance, otherwise its `undefined`
 - `FPSMeter#element` {*DOMElement*|*undefined*} — When `{ui: true}` this property holds *DOMElement* of FPSMeter UI element `div`, otherwise its `undefined`
-- `FPSMeter#isRunning` {*Boolean*}
 - `FPSMeter#fps` {*Number*|*ReactiveVar*} — When `{reactive: false}` it holds a {*Number*} with current FPS. When `{reactive: true}` it is an instance of `{*ReactiveVar*}`. Use `.get()` method to return current FPS. It's reactive data source, and can be used in template:
 
 ```js
