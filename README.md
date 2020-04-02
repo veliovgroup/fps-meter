@@ -51,22 +51,24 @@ const fps = new FPSMeter({ui: true, reactive: false});
 // fps.stop();
 ```
 
-### `FPSMeter#start()`
+#### Methods
 
-Use to start measuring FPS. If `{ui: true}` small box with current FPS will be rendered into `body`
+- `FPSMeter#start()` — Use to start measuring FPS. If `{ui: true}` small box with current FPS will be rendered into `body`
+- `FPSMeter#stop()` — Use to stop measuring FPS. If `{ui: true}` box with current FPS will be removed from `body`
+- `FPSMeter#pause()` — Use to pause measuring FPS. If `{ui: true}` box with current FPS will remain in `body`
+- `FPSMeter#resume()` — Use to resume measuring FPS
+- `FPSMeter#toggle()` — Use to toggle (pause/resume) measuring FPS
 
-### `FPSMeter#stop()`
+#### Properties
 
-Use to stop measuring FPS. If `{ui: true}` box with current FPS will be removed from `body`
-
-### `FPSMeter#fps`
-
-If `{reactive: false}` it holds a {*Number*} with current FPS.
-
-If `{reactive: true}` it is an instance of `ReactiveVar`. Use `.get()` method to return current FPS. It's reactive data source, and can be used in template:
+- `FPSMeter#isRunning` {*Boolean*}
+- `FPSMeter#template` {*Blaze.View*|*undefined*} — When `{ui: true}` this property holds *Blaze.View* instance, otherwise its `undefined`
+- `FPSMeter#element` {*DOMElement*|*undefined*} — When `{ui: true}` this property holds *DOMElement* of FPSMeter UI element `div`, otherwise its `undefined`
+- `FPSMeter#isRunning` {*Boolean*}
+- `FPSMeter#fps` {*Number*|*ReactiveVar*} — When `{reactive: false}` it holds a {*Number*} with current FPS. When `{reactive: true}` it is an instance of `{*ReactiveVar*}`. Use `.get()` method to return current FPS. It's reactive data source, and can be used in template:
 
 ```js
-const fps = new FPSMeter({ui: true, reactive: true});
+const fps = new FPSMeter({ui: false, reactive: true});
 
 Template.currentFPS.helpers({
   currentFPS() {
@@ -94,6 +96,14 @@ Template.currentFPS.events({
   <button data-start-fps>Start</button>
   <button data-stop-fps>Stop</button>
 </template>
+```
+
+### Pause/Resume by clicking on UI box
+
+```js
+const fps = new FPSMeter({ ui: true });
+fps.start();
+fps.element.addEventListener('click', fps.toggle.bind(fps), { passive: true, capture: false });
 ```
 
 ## Support this project:
