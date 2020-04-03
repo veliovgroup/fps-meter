@@ -1,7 +1,3 @@
-import { Blaze }       from 'meteor/blaze';
-import { Template }    from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
-
 if (!window.requestAnimationFrame) {
   window.requestAnimationFrame = (() => {
     return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
@@ -14,19 +10,12 @@ const getTime = () => {
   return (window.performance && window.performance.now) ? window.performance.now() : +new Date();
 };
 
-class FPSMeter {
+module.exports = class FPSMeter {
   constructor(opts) {
     this.ui = opts.ui || false;
-    this.reactive = opts.reactive || false;
-
-    if (this.reactive === true) {
-      this.fps = new ReactiveVar(0);
-    } else {
-      this.fps = 0;
-    }
-
+    this.fps = 0;
     this.isRunning = false;
-    this.template = null;
+    this.defaultStyles = 'z-index:999;position:fixed;bottom:0;left:0;padding:10px;font-weight:600;font-style:normal;font-size:12px;font-family:Consolas,Menlo,Monaco,"Lucida Console","Liberation Mono","DejaVu Sans Mono","Bitstream Vera Sans Mono","Courier New",Courier,monospace,sans-serif';
   }
 
   measure() {
@@ -34,11 +23,7 @@ class FPSMeter {
     window.requestAnimationFrame(() => {
       const _fps = Math.round((1 / (getTime() - time)) * 1000);
 
-      if (this.reactive === true) {
-        this.fps.set(_fps);
-      } else {
-        this.fps = _fps;
-      }
+      this.fps = _fps;
 
       if (this.ui && this.element) {
         let i = 4 - `${_fps}`.length;
@@ -53,19 +38,24 @@ class FPSMeter {
 
         switch (false) {
         case !(_fps < 7):
-          this.element.className = 'dead';
+          this.element.style.color = '#FFF';
+          this.element.style.backgroundColor = '#FF4500';
           break;
         case !(_fps < 25):
-          this.element.className = 'danger';
+          this.element.style.color = '#FF4500';
+          this.element.style.backgroundColor = '#000';
           break;
         case !(_fps < 40):
-          this.element.className = 'warn';
+          this.element.style.color = 'orange';
+          this.element.style.backgroundColor = '#000';
           break;
         case !(_fps > 70):
-          this.element.className = 'high';
+          this.element.style.color = '#0f0';
+          this.element.style.backgroundColor = '#000';
           break;
         default:
-          this.element.className = '';
+          this.element.style.color = '#018801';
+          this.element.style.backgroundColor = '#000';
           break;
         }
       }
@@ -80,9 +70,10 @@ class FPSMeter {
     if (!this.isRunning) {
       this.isRunning = true;
 
-      if (this.ui === true && Blaze) {
-        this.template = Blaze.render(Template.FPSMeter, document.body);
-        this.element = this.template.templateInstance().find('#__FPSMeter');
+      if (this.ui === true) {
+        this.element = document.createElement('div');
+        this.element.style = this.defaultStyles;
+        document.body.appendChild(this.element);
       }
 
       this.measure();
@@ -107,11 +98,9 @@ class FPSMeter {
   stop() {
     if (this.isRunning) {
       this.isRunning = false;
-      if (this.ui === true && Blaze && this.template) {
-        Blaze.remove(this.template);
+      if (this.ui === true && this.element) {
+        this.element.remove();
       }
     }
   }
-}
-
-export { FPSMeter };
+};

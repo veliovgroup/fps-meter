@@ -14,17 +14,44 @@ During our development process, we are using FPS-meter, which gives a signal whe
 
 This library works on mobile devices. It utilizes `performance.now` to measure time frame and `requestAnimationFrame` to measure rendered frames, both APIs are very efficient and have a minor impact (*for correct FPS measurement*).
 
+## Demo:
+
+- Demo can be found on [this website](https://cssbuilder.veliovgroup.com) (*in the left bottom corner*).
+
 ## Drop-in version
 
-Installation is not required, copy-paste script into browser' console, [see this Gist](https://gist.github.com/dr-dimitru/dcf0456c9c3d691e373a1adec8d60e16).
+Installation is not required, copy-paste script into browser' console:
+
+- Drop-in: [minified version](https://github.com/VeliovGroup/fps-meter/blob/master/fps-meter-drop-in.min.js);
+- Drop-in: [developer version](https://github.com/VeliovGroup/fps-meter/blob/master/fps-meter-drop-in.js);
+- Link [to minified file](https://raw.githubusercontent.com/VeliovGroup/fps-meter/master/fps-meter-drop-in.min.js);
+- HTML Script: `<script type="text/javascript" src="https://raw.githubusercontent.com/VeliovGroup/fps-meter/master/fps-meter-drop-in.min.js"></script>`
 
 ## Installation
+
+### NPM install
+
+```shell
+npm i --save fps-m
+```
+
+### Meteor add
 
 ```shell
 meteor add ostrio:fps-meter
 ```
 
-### ES6 Import
+### NPM require
+
+```js
+// require
+const FPSMeter = require('fps-m');
+
+// ES6 import:
+import FPSMeter from 'fps-m';
+```
+
+### Meteor: ES6 Import
 
 ```js
 import { FPSMeter } from 'meteor/ostrio:fps-meter';
