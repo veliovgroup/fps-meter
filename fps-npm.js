@@ -30,11 +30,11 @@ module.exports = class FPSMeter {
         let pad = '';
 
         while (i > 0) {
-          pad += '&nbsp;';
+          pad += ' ';
           i--;
         }
 
-        this.element.innerHTML = `${_fps}${pad}fps`;
+        this.text.nodeValue = `${_fps}${pad}fps`;
 
         switch (false) {
         case !(_fps < 7):
@@ -71,8 +71,10 @@ module.exports = class FPSMeter {
       this.isRunning = true;
 
       if (this.ui === true) {
+        this.text = document.createTextNode('');
         this.element = document.createElement('div');
         this.element.style = this.defaultStyles;
+        this.element.appendChild(this.text);
         document.body.appendChild(this.element);
       }
 

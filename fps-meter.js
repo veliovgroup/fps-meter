@@ -45,11 +45,11 @@ class FPSMeter {
         let pad = '';
 
         while (i > 0) {
-          pad += '&nbsp;';
+          pad += ' ';
           i--;
         }
 
-        this.element.innerHTML = `${_fps}${pad}fps`;
+        this.text.nodeValue = `${_fps}${pad}fps`;
 
         switch (false) {
         case !(_fps < 7):
@@ -82,7 +82,9 @@ class FPSMeter {
 
       if (this.ui === true && Blaze) {
         this.template = Blaze.render(Template.FPSMeter, document.body);
+        this.text = document.createTextNode('');
         this.element = this.template.templateInstance().find('#__FPSMeter');
+        this.element.appendChild(this.text);
       }
 
       this.measure();
