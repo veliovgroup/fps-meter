@@ -1,6 +1,6 @@
 {
   "name": "fps-m",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Efficient and accurate FPS meter, with minimalistic UI",
   "main": "fps-npm.js",
   "scripts": {

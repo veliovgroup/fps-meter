@@ -1,6 +1,6 @@
 Package.describe({
   name: 'ostrio:fps-meter',
-  version: '1.1.1',
+  version: '1.1.2',
   summary: 'Efficient and accurate FPS meter, with minimalistic UI',
   git: 'https://github.com/VeliovGroup/fps-meter',
   documentation: 'README.md'
