@@ -1,12 +1,10 @@
-# Measure FPS
-
-<a href="https://www.patreon.com/bePatron?u=20396046">
-  <img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" height="38">
-</a>
-
+[![support](https://img.shields.io/badge/support-GitHub-white)](https://github.com/sponsors/dr-dimitru)
+[![support](https://img.shields.io/badge/support-PayPal-white)](https://paypal.me/veliovgroup)
 <a href="https://ostr.io/info/built-by-developers-for-developers">
-  <img src="https://ostr.io/apple-touch-icon-60x60.png" height="38">
+  <img src="https://ostr.io/apple-touch-icon-60x60.png" height="20">
 </a>
+
+# Measure FPS
 
 While working with CSS, HTML, and JavaScript, it's always important to take care of browser rendering in browser DevTools. To find issues with rendering, we are using "Timeline" with "JS Profile" and "Memory" consumption tracking. Those tools are great when you know about the existing problem.
 
@@ -28,6 +26,8 @@ Installation is not required, copy-paste script into browser' console:
 - HTML Script: `<script type="text/javascript" src="https://raw.githubusercontent.com/VeliovGroup/fps-meter/master/fps-meter-drop-in.min.js"></script>`
 
 ## Installation
+
+Installation is available via NPM for your favorite build tool and Atmosphere for Meteor.js
 
 ### NPM install
 
@@ -65,6 +65,8 @@ import { FPSMeter } from 'meteor/ostrio:fps-meter';
 
 ## API
 
+Render, start, pause, and resume FPS Meter
+
 ### `new FPSMeter([opts])`
 
 - `opts` {*Object*}
@@ -92,6 +94,18 @@ const fps = new FPSMeter({ui: true, reactive: false});
 - `FPSMeter#template` {*Blaze.View*|*undefined*} — When `{ui: true}` this property holds *Blaze.View* instance, otherwise its `undefined`
 - `FPSMeter#element` {*DOMElement*|*undefined*} — When `{ui: true}` this property holds *DOMElement* of FPSMeter UI element `div`, otherwise its `undefined`
 - `FPSMeter#fps` {*Number*|*ReactiveVar*} — When `{reactive: false}` it holds a {*Number*} with current FPS. When `{reactive: true}` it is an instance of `{*ReactiveVar*}`. Use `.get()` method to return current FPS. It's reactive data source, and can be used in template:
+
+## Examples
+
+### Pause/Resume by clicking on UI box
+
+```js
+const fps = new FPSMeter({ ui: true });
+fps.start();
+fps.element.addEventListener('click', fps.toggle.bind(fps), { passive: true, capture: false });
+```
+
+### Meteor.js usage
 
 ```js
 const fps = new FPSMeter({ui: false, reactive: true});
@@ -124,15 +138,8 @@ Template.currentFPS.events({
 </template>
 ```
 
-### Pause/Resume by clicking on UI box
+## Support this project
 
-```js
-const fps = new FPSMeter({ ui: true });
-fps.start();
-fps.element.addEventListener('click', fps.toggle.bind(fps), { passive: true, capture: false });
-```
-
-## Support this project:
-
-- [Become a patron](https://www.patreon.com/bePatron?u=20396046) — support my open source contributions with monthly donation
+- [Sponsor via GitHub](https://github.com/sponsors/dr-dimitru)
+- [Support via PayPal](https://paypal.me/veliovgroup) — support my open source contributions once or on regular basis
 - Use [ostr.io](https://ostr.io) — [Monitoring](https://snmp-monitoring.com), [Analytics](https://ostr.io/info/web-analytics), [WebSec](https://domain-protection.info), [Web-CRON](https://web-cron.info) and [Pre-rendering](https://prerendering.com) for a website
