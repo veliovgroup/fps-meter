@@ -1,5 +1,5 @@
-import { Blaze }       from 'meteor/blaze';
-import { Template }    from 'meteor/templating';
+import { Blaze } from 'meteor/blaze';
+import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 
 if (!window.requestAnimationFrame) {
