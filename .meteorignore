@@ -1,17 +1,19 @@
-*.md
 .DS_Store
 .eslintcache
 .eslintrc
 .github
+.gitignore
+.npmignore
 .meteor
-.meteorignore
 .npm
 .versions
 node_modules
-npm-debug.log*
-package.js
 
-fps-meter.js
-fps-meter.html
+fps-npm.js
 fps-meter-drop-in.js
 fps-meter-drop-in.min.js
+
+CHANGELOG.md
+HISTORY.md
+LICENSE
+README.md
