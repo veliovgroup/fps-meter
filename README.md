@@ -20,10 +20,10 @@ This library works on mobile devices. It utilizes `performance.now` to measure t
 
 Installation is not required, copy-paste script into browser' console:
 
-- Drop-in: [minified version](https://github.com/VeliovGroup/fps-meter/blob/master/fps-meter-drop-in.min.js);
-- Drop-in: [developer version](https://github.com/VeliovGroup/fps-meter/blob/master/fps-meter-drop-in.js);
-- Link [to minified file](https://raw.githubusercontent.com/VeliovGroup/fps-meter/master/fps-meter-drop-in.min.js);
-- HTML Script: `<script type="text/javascript" src="https://raw.githubusercontent.com/VeliovGroup/fps-meter/master/fps-meter-drop-in.min.js"></script>`
+- Drop-in: [minified version](https://github.com/veliovgroup/fps-meter/blob/master/fps-meter-drop-in.min.js);
+- Drop-in: [developer version](https://github.com/veliovgroup/fps-meter/blob/master/fps-meter-drop-in.js);
+- Link [to minified file](https://raw.githubusercontent.com/veliovgroup/fps-meter/master/fps-meter-drop-in.min.js);
+- HTML Script: `<script type="text/javascript" src="https://raw.githubusercontent.com/veliovgroup/fps-meter/master/fps-meter-drop-in.min.js"></script>`
 
 ## Installation
 
